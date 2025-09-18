@@ -9,7 +9,36 @@ except ImportError:
 
 from collections import OrderedDict
 from pointcept.models.utils.structure import Point
-from pointcept.engines.hooks import HookBase
+
+try:
+    from pointcept.engines.hooks import HookBase
+except ModuleNotFoundError as exc:
+    if exc.name == "wandb":
+        class HookBase:  # type: ignore[override]
+            """Minimal fallback when Weights & Biases is unavailable."""
+
+            trainer = None  # type: ignore[assignment]
+
+            def before_train(self):
+                pass
+
+            def before_epoch(self):
+                pass
+
+            def before_step(self):
+                pass
+
+            def after_step(self):
+                pass
+
+            def after_epoch(self):
+                pass
+
+            def after_train(self):
+                pass
+
+    else:
+        raise
 
 
 def is_ocnn_module(module):
