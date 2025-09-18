@@ -13,9 +13,9 @@ import torch
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 
-from dataset import DatasetConfig, S3DISSimpleDataset, simple_collate_fn
-from metrics import SegmentationMetric
-from model import (
+from .dataset import DatasetConfig, S3DISSimpleDataset, simple_collate_fn
+from .metrics import SegmentationMetric
+from .model import (
     BackboneConfig,
     SimplePointTransformerV3Segmentor,
     load_sonata_checkpoint,
